@@ -1,7 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useState } from 'react'
 import { Form, Container, Button } from 'react-bootstrap'
-import { propTypes } from 'react-bootstrap/esm/Image'
 
 function RegistrationPage(props) {
 
