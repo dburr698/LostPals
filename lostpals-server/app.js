@@ -44,6 +44,29 @@ app.post('/api/register', async (req, res) => {
     }
 })
 
+app.post('/api/login', async (req, res) => {
+    const username = req.body.username
+    const password = req.body.password
+
+    let user = await models.User.findOne({
+        where: {
+            username: username
+        }
+    })
+
+    if(user != null){
+        bcrypt.compare(password, user.password, (error, result) => {
+            if(result) {
+                res.json({success: true})
+            } else {
+                res.json({message: "Password Incorrect"})
+            }
+        })
+    } else {
+        res.json({message: "Username Incorrect"})
+    }
+})
+
 app.listen(8080, () => {
     console.log("Server is running")
 })

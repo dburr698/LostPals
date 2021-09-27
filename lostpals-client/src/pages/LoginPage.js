@@ -1,23 +1,23 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { useState } from 'react'
-import { Form, Container, Button, Alert } from 'react-bootstrap'
+import { useState } from "react"
+import { Button, Container, Form, Alert } from "react-bootstrap"
 
-function RegistrationPage(props) {
+
+function LoginPage(props) {
 
     const [user, setUser] = useState({})
     const [message, setMessage] = useState('')
 
-    const handleRegisterChange = (e) => {
+    const handleLoginChange = (e) => {
         setUser({
             ...user,
             [e.target.name]: e.target.value
         })
     }
 
-    const handleRegisterButton = (e) => {
+    const handleLoginButton = (e) => {
         e.preventDefault()
 
-        fetch('http://localhost:8080/api/register', {
+        fetch('http://localhost:8080/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -26,42 +26,35 @@ function RegistrationPage(props) {
         }).then(response => response.json())
             .then(result => {
                 if (result.success) {
-                    props.history.push('/login')
+                    props.history.push('/')
                 } else {
                     setMessage(result.message)
                 }
             })
-
-
     }
 
     return (
         <div>
-            <h1>Registration</h1>
+            <h1>Login</h1>
             <Container>
                 <Form>
                     <Form.Group className="mb-3">
                         <Form.Label>Username</Form.Label>
-                        <Form.Control type="text" name="username" onChange={handleRegisterChange} placeholder="Enter Username" required />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" name="email" onChange={handleRegisterChange} placeholder="example@email.com" required />
+                        <Form.Control type="text" name="username" onChange={handleLoginChange} placeholder="Enter Username" />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" name="password" onChange={handleRegisterChange} placeholder="Enter Password" required />
+                        <Form.Control type="password" name="password" onChange={handleLoginChange} placeholder="Enter Password" />
                     </Form.Group>
                     <Form.Group>
                         {message && <Alert variant='danger'>{message}</Alert>}
                     </Form.Group>
-                    <Button variant="primary" onClick={handleRegisterButton} >Register</Button>
+                    <Button variant='primary' onClick={handleLoginButton}>Login</Button>
 
                 </Form>
             </Container>
-
         </div>
     )
 }
 
-export default RegistrationPage
+export default LoginPage
