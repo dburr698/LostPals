@@ -1,8 +1,16 @@
 const express = require('express')
 const app = express()
 
+//import dotenv
+require('dotenv').config()
+
+// import json web token package
+const jwt = require('jsonwebtoken')
+
+// import cors package
 const cors = require('cors')
 
+//import bcrypt package
 const bcrypt = require('bcryptjs')
 const salt = 10
 
@@ -57,7 +65,8 @@ app.post('/api/login', async (req, res) => {
     if(user != null){
         bcrypt.compare(password, user.password, (error, result) => {
             if(result) {
-                res.json({success: true})
+                const token = jwt.sign({username: user.username}, process.env.ENCODER_KEY)
+                res.json({success: true, token: token})
             } else {
                 res.json({message: "Password Incorrect"})
             }

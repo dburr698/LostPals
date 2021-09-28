@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import BaseLayout from './components/BaseLayout';
 import RegistrationPage from './pages/RegistrationPage';
 import LoginPage from './pages/LoginPage';
+import AccountPage from './pages/AccountPage';
 
 
 
@@ -18,6 +19,7 @@ ReactDOM.render(
           <Route exact path='/' component={HomePage} />
           <Route path='/register' component={RegistrationPage} />
           <Route path='/login' component={LoginPage} />
+          <Route path='/account' component={AccountPage} />
         </Switch>
       </BaseLayout>
     </BrowserRouter>
