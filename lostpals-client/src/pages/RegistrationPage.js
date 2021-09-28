@@ -37,8 +37,9 @@ function RegistrationPage(props) {
 
     return (
         <div>
-            <h1>Registration</h1>
+
             <Container>
+                <h1>Registration</h1>
                 <Form>
                     <Form.Group className="mb-3">
                         <Form.Label>Username</Form.Label>
