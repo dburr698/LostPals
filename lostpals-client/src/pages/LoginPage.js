@@ -26,6 +26,8 @@ function LoginPage(props) {
         }).then(response => response.json())
             .then(result => {
                 if (result.success) {
+                    const token = result.token
+                    localStorage.setItem('jsonwebtoken', token)
                     props.history.push('/')
                 } else {
                     setMessage(result.message)
@@ -51,7 +53,7 @@ function LoginPage(props) {
                         {message && <Alert variant='danger'>{message}</Alert>}
                     </Form.Group>
                     <Button variant='primary' onClick={handleLoginButton}>Login</Button>
-
+                    <a href='/register'><Button className="m-2" variant="success">Create an Account</Button></a>
                 </Form>
             </Container>
         </div>
