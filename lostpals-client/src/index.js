@@ -8,12 +8,22 @@ import RegistrationPage from './pages/RegistrationPage';
 import LoginPage from './pages/LoginPage';
 import MyPetsPage from './pages/MyPetsPage';
 import AddPetPage from './pages/AddPetPage';
+import { Provider } from 'react-redux';
+import UserIdReducer from './stores/reducers/userIdReducer';
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
+import thunk from 'redux-thunk'
 
+const reducer = combineReducers({
+  userRed: UserIdReducer
+})
 
+const composeEnhaners = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const store = createStore(reducer, composeEnhaners(applyMiddleware(thunk)))
 
 
 ReactDOM.render(
   <React.StrictMode>
+    <Provider store={store}>
     <BrowserRouter>
       <BaseLayout>
         <Switch>
@@ -25,6 +35,7 @@ ReactDOM.render(
         </Switch>
       </BaseLayout>
     </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

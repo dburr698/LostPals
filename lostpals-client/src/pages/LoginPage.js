@@ -1,5 +1,7 @@
 import { useState } from "react"
 import { Button, Container, Form, Alert } from "react-bootstrap"
+import { connect } from 'react-redux'
+import * as actionCreator from '../stores/creators/actionCreators'
 
 
 function LoginPage(props) {
@@ -26,6 +28,7 @@ function LoginPage(props) {
         }).then(response => response.json())
             .then(result => {
                 if (result.success) {
+                    props.onStoreUserId(result.userId)
                     const token = result.token
                     localStorage.setItem('jsonwebtoken', token)
                     props.history.push('/')
@@ -60,4 +63,11 @@ function LoginPage(props) {
     )
 }
 
-export default LoginPage
+const mapDispachToProps = (dispatch) => {
+    return {
+        onStoreUserId: (userId) => dispatch(actionCreator.storeUserId(userId))
+    }
+}
+
+
+export default connect(null, mapDispachToProps)(LoginPage)
