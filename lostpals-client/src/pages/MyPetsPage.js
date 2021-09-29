@@ -1,4 +1,5 @@
 import { Button, Container } from "react-bootstrap"
+import { NavLink } from "react-router-dom"
 
 
 function MyPetsPage() {
@@ -9,7 +10,7 @@ function MyPetsPage() {
             <h1>My Pets</h1>
 
 
-            <a href='/add-pet' ><Button>Register a New Pet</Button></a>
+            <NavLink to='/add-pet' ><Button>Register a New Pet</Button></NavLink>
             </Container>
         </div>
     )
