@@ -16,8 +16,12 @@ const salt = 10
 
 const models = require('./models')
 
+// import formidable package
+const formidable = require('formidable')
+
 app.use(cors())
 app.use(express.json())
+app.use('/uploads', express.static('uploads'))
 
 app.post('/api/register', async (req, res) => {
     const username = req.body.username
@@ -73,6 +77,59 @@ app.post('/api/login', async (req, res) => {
         })
     } else {
         res.json({message: "Username Incorrect"})
+    }
+})
+
+
+
+function uploadFile(req, callback) {
+    
+    new formidable.IncomingForm().parse(req)
+    .on('fileBegin', (name, file) => {
+        file.path = __dirname + '/uploads/' + file.name
+    })
+    .on('file', (name, file) => {
+        callback(file.name)
+    })
+}
+
+app.post('/api/upload', (req, res) => {
+
+    uploadFile(req, (photoURL) => {
+        res.json({success: true})
+    })
+
+    
+})
+
+app.post('/api/add-pet', async (req, res) => {
+    const name = req.body.name
+    const gender = req.body.gender
+    const color = req.body.color
+    const breed = req.body.breed
+    const image = req.body.image
+    const is_chipped = req.body.is_chipped
+    const chip_id = req.body.chip_id
+    const user_id = req.body.user_id
+
+    const persistedPet = await models.Pet.findOne({
+        where: {
+            name: name,
+            user_id: user_id
+        }
+    })
+
+    if(persistedPet == null){
+        const pet = models.Pet.build({
+            name: name,
+            gender: gender,
+            color: color,
+            breed: breed,
+            image: image,
+            is_chipped: is_chipped,
+            chip_id: chip_id,
+            user_id: user_id
+        })
     }
 })
 
