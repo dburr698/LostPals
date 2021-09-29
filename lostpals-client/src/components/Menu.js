@@ -6,7 +6,7 @@ function Menu() {
             <NavLink className="link" to='/' >Home</NavLink>
             <NavLink className="link" to='/login'>Login</NavLink>
             <NavLink className="link" to='/register'>Register</NavLink>
-            <NavLink className="link" to='/account'>My Account</NavLink>
+            <NavLink className="link" to='/my-pets'>My Pets</NavLink>
         </div>
     )
 }

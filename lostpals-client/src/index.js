@@ -6,7 +6,8 @@ import HomePage from './pages/HomePage';
 import BaseLayout from './components/BaseLayout';
 import RegistrationPage from './pages/RegistrationPage';
 import LoginPage from './pages/LoginPage';
-import AccountPage from './pages/AccountPage';
+import MyPetsPage from './pages/MyPetsPage';
+import AddPetPage from './pages/AddPetPage';
 
 
 
@@ -19,7 +20,8 @@ ReactDOM.render(
           <Route exact path='/' component={HomePage} />
           <Route path='/register' component={RegistrationPage} />
           <Route path='/login' component={LoginPage} />
-          <Route path='/account' component={AccountPage} />
+          <Route path='/my-pets' component={MyPetsPage} />
+          <Route path='/add-pet' component={AddPetPage} />
         </Switch>
       </BaseLayout>
     </BrowserRouter>
