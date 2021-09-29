@@ -15,9 +15,7 @@ function AddPetPage() {
     }
 
     const handleFileChange = (e) => {
-        setFile({
-            [e.target.name]: e.target.files[0]
-        })
+        setFile(e.target.files[0])
     }
 
     const handleUploadButton = () => {
@@ -25,9 +23,7 @@ function AddPetPage() {
         formData.append('file', file)
         fetch('http://localhost:8080/api/upload', {
             method:'POST',
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            },
+            
             body: formData
         }).then(response => response.json())
         .then(result => {
@@ -52,7 +48,7 @@ function AddPetPage() {
                 
                     <Form.Group className='mb-3'>
                         <Form.Label>Photo: </Form.Label>
-                        <Form.Control type="file" name="image" onChange={handleFileChange} />
+                        <Form.Control type="file" name="file" onChange={handleFileChange} />
                     </Form.Group>
                     <Button type='submit' onClick={handleUploadButton} >Upload</Button>
                 
