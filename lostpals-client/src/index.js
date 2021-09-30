@@ -14,6 +14,7 @@ import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk'
 import FetchMyPetsReducer from './stores/reducers/fetchMyPetsReducer';
 import ReportLostPetPage from './pages/ReportLostPetPage';
+import LostPetsGalleryPage from './pages/LostPetsGalleryPage';
 
 const reducer = combineReducers({
   userRed: UserIdReducer,
@@ -36,6 +37,7 @@ ReactDOM.render(
           <Route path='/my-pets' component={MyPetsPage} />
           <Route path='/add-pet' component={AddPetPage} />
           <Route path='/report-lost-pet' component={ReportLostPetPage} />
+          <Route path='/lost-pet-gallery' component={LostPetsGalleryPage} />
         </Switch>
       </BaseLayout>
     </BrowserRouter>

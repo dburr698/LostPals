@@ -34,9 +34,6 @@ app.get('/api/:userId/my-pets-info', async (req, res) => {
     let myPets = await models.Pet.findAll({
         where: {
             user_id: userId
-        },
-        attributes: {
-            exclude: ['image']
         }
     })
     res.json(myPets)
@@ -169,6 +166,28 @@ app.post('/api/add-pet', async (req, res) => {
         res.json({ success: true })
     } else {
         res.json({ message: "Could not save data" })
+    }
+
+})
+
+app.post('/api/report-lost-pet', async (req, res) => {
+    const petId = req.body.petId
+    const circumstance = req.body.circumstance
+    const dateLost = req.body.dateLost
+    const zipcode = parseInt(req.body.zipcode)
+
+    const lostPet = models.LostPet.build({
+        pet_id: petId,
+        date_lost: dateLost,
+        circumstance: circumstance,
+        zipcode: zipcode
+    })
+
+    let savedLostPet = await lostPet.save()
+    if(savedLostPet != null) {
+        res.json({success: true, message: "Your pet has successfully been reported!"})
+    } else {
+        res.json({message: 'There was an issue reporting your pet. We apologize for the incovenience. Please try again.'})
     }
 
 })
