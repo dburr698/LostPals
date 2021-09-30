@@ -184,12 +184,26 @@ app.post('/api/report-lost-pet', async (req, res) => {
     })
 
     let savedLostPet = await lostPet.save()
-    if(savedLostPet != null) {
-        res.json({success: true, message: "Your pet has successfully been reported!"})
+    if (savedLostPet != null) {
+        res.json({ success: true, message: "Your pet has successfully been reported!" })
     } else {
-        res.json({message: 'There was an issue reporting your pet. We apologize for the incovenience. Please try again.'})
+        res.json({ message: 'There was an issue reporting your pet. We apologize for the incovenience. Please try again.' })
     }
 
+})
+
+app.get('/api/lost-pets', async (req, res) => {
+
+    let lostPets = await models.LostPet.findAll({
+        include: [{
+                model: models.Pet,
+                as: 'pet',
+                
+            }]
+    })
+
+
+    res.json(lostPets)
 })
 
 app.listen(8080, () => {
