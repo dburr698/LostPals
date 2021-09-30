@@ -1,12 +1,21 @@
-import { NavLink } from "react-router-dom"
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap"
+import { Link, NavLink } from "react-router-dom"
 
 function Menu() {
-    return(
+    return (
         <div className="menu">
-            <NavLink className="link" to='/' >Home</NavLink>
-            <NavLink className="link" to='/login'>Login</NavLink>
-            <NavLink className="link" to='/register'>Register</NavLink>
-            <NavLink className="link" to='/my-pets'>My Pets</NavLink>
+            
+                <Navbar bg='dark' variant='dark'>
+                    <Link className="nav-link" to='/' ><h3>Lost Pals</h3></Link>
+                    <NavDropdown title="Lost Pet" id="basic-nav-dropdown" > 
+                        <Link className="nav-link" to='' >Lost Pet Gallery</Link>
+                        <Link className='nav-link' to='' >Report Lost Pet</Link>
+                    </NavDropdown>
+                    <Link className="nav-link" to='/login'>Login</Link>
+                    <Link className="nav-link" to='/register'>Register</Link>
+                    <Link className="nav-link" to='/my-pets'>My Pets</Link>
+                </Navbar>
+            
         </div>
     )
 }
