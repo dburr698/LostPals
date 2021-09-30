@@ -1,16 +1,10 @@
-import { useEffect } from "react"
 import { Button, Container } from "react-bootstrap"
-import { connect } from "react-redux"
 import { NavLink } from "react-router-dom"
 import MyPetsList from "../components/MyPetsList"
-import * as actionCreator from '../stores/creators/actionCreators'
 
 function MyPetsPage(props) {
 
-    useEffect(() => {
-        props.onFetchMyPets(props.userId)
-    }, [])
-
+    
     return (
         <div>
             <Container>
@@ -24,16 +18,5 @@ function MyPetsPage(props) {
     )
 }
 
-const mapStateToProps = (state) => {
-    return{
-        userId: state.userRed.userID
-    }
-}
 
-const mapDispatchToProps = (dispatch) => {
-    return{
-        onFetchMyPets: (userId) => dispatch(actionCreator.fetchMyPets(userId))
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(MyPetsPage)
+export default MyPetsPage
