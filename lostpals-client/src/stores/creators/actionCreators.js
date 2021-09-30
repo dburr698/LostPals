@@ -6,3 +6,15 @@ export const storeUserId = (userId) => {
         payload: userId
     }
 }
+
+export const fetchMyPets = (userId) => {
+    return async (dispatch) => {
+        let response = await fetch(`http://localhost:8080/api/${userId}/my-pets`)
+        let myPets = await response.json()
+        dispatch({
+            type: actionType.FETCH_MY_PETS,
+            payload: myPets
+        })
+    }
+}
+

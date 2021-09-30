@@ -28,6 +28,36 @@ app.use(cors())
 app.use(express.json())
 app.use('/uploads', express.static('uploads'))
 
+app.get('/api/:userId/my-pets-info', async (req, res) => {
+    const userId = req.params.userId
+
+    let myPets = await models.Pet.findAll({
+        where: {
+            user_id: userId
+        },
+        attributes: {
+            exclude: ['image']
+        }
+    })
+    res.json(myPets)
+
+})
+
+/*
+app.get('/api/:userId/:petName/my-pet-image', async (req, res) => {
+    const userId = req.params.userId
+    const petName = req.params.petName
+
+    let petImage = await models.Pet.findAll({
+        where: {
+            user_id: userId,
+            name: petName
+        }
+    })
+    res.blob(petImage)
+})
+*/
+
 app.post('/api/register', async (req, res) => {
     const username = req.body.username
     const password = req.body.password
@@ -37,6 +67,7 @@ app.post('/api/register', async (req, res) => {
         where: {
             username: username
         }
+
     })
 
     if (persistedUser == null) {

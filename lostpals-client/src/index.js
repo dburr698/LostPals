@@ -12,9 +12,12 @@ import { Provider } from 'react-redux';
 import UserIdReducer from './stores/reducers/userIdReducer';
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk'
+import FetchMyPetsReducer from './stores/reducers/fetchMyPetsReducer';
+import ReportLostPetPage from './pages/ReportLostPetPage';
 
 const reducer = combineReducers({
-  userRed: UserIdReducer
+  userRed: UserIdReducer,
+  fetchMyPetsRed: FetchMyPetsReducer
 })
 
 const composeEnhaners = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
@@ -32,6 +35,7 @@ ReactDOM.render(
           <Route path='/login' component={LoginPage} />
           <Route path='/my-pets' component={MyPetsPage} />
           <Route path='/add-pet' component={AddPetPage} />
+          <Route path='/report-lost-pet' component={ReportLostPetPage} />
         </Switch>
       </BaseLayout>
     </BrowserRouter>
