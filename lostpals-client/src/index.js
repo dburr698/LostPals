@@ -15,10 +15,12 @@ import thunk from 'redux-thunk'
 import FetchMyPetsReducer from './stores/reducers/fetchMyPetsReducer';
 import ReportLostPetPage from './pages/ReportLostPetPage';
 import LostPetsGalleryPage from './pages/LostPetsGalleryPage';
+import FetchLostPetsReducer from './stores/reducers/fetchLostPetsReducer';
 
 const reducer = combineReducers({
   userRed: UserIdReducer,
-  fetchMyPetsRed: FetchMyPetsReducer
+  fetchMyPetsRed: FetchMyPetsReducer,
+  fetchLostPetsRed: FetchLostPetsReducer
 })
 
 const composeEnhaners = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

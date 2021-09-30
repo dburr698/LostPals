@@ -18,5 +18,14 @@ export const fetchMyPets = (userId) => {
     }
 }
 
-
+export const fetchLostPets = () => {
+    return async (dispatch) => {
+        let response = await fetch('http://localhost:8080/api/lost-pets')
+        let lostPets = await response.json()
+        dispatch({
+            type: actionType.FETCH_LOST_PETS,
+            payload: lostPets
+        })
+    }
+}
 
