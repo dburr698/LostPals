@@ -29,10 +29,10 @@ function LoginPage(props) {
         }).then(response => response.json())
             .then(result => {
                 if (result.success) {
-                    props.onStoreUserId(result.userId)
-                    props.onFetchMyPets(result.userId)
                     const token = result.token
                     localStorage.setItem('jsonwebtoken', token)
+                    props.onStoreUserId(result.userId)
+                    props.onFetchMyPets(result.userId)
                     props.history.push('/')
                 } else {
                     setMessage(result.message)
@@ -52,10 +52,11 @@ function LoginPage(props) {
         }).then(response => response.json())
             .then(result => {
                 if (result.success) {
-                    props.onStoreUserId(result.userId)
-                    props.onFetchMyPets(result.userId)
                     const token = result.token
                     localStorage.setItem('jsonwebtoken', token)
+                    props.onStoreUserId(result.userId)
+                    props.onFetchMyPets(result.userId)
+                    props.onLoggedIn()
                     props.history.push('/')
                 } else {
                     setMessage(result.message)
@@ -92,7 +93,8 @@ function LoginPage(props) {
 const mapDispachToProps = (dispatch) => {
     return {
         onStoreUserId: (userId) => dispatch(actionCreator.storeUserId(userId)),
-        onFetchMyPets: (userId) => dispatch(actionCreator.fetchMyPets(userId))
+        onFetchMyPets: (userId) => dispatch(actionCreator.fetchMyPets(userId)),
+        onLoggedIn: () => dispatch(actionCreator.isLoggedIn())
     }
 }
 

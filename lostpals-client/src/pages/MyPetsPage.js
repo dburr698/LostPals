@@ -1,10 +1,13 @@
+import { useEffect } from "react"
 import { Button, Container } from "react-bootstrap"
+import { connect } from "react-redux"
 import { NavLink } from "react-router-dom"
 import MyPetsList from "../components/MyPetsList"
+import * as actionCreator from '../stores/creators/actionCreators'
 
 function MyPetsPage(props) {
 
-
+    
     return (
         <div>
             <Container>

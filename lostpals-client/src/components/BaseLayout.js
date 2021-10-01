@@ -2,9 +2,10 @@ import Menu from "./Menu";
 
 
 function BaseLayout(props) {
+
     return(
         <div>
-            <Menu/>
+            <Menu history = {props.history}/>
             {props.children}
 
         </div>
