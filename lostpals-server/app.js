@@ -26,6 +26,7 @@ const {
 
 app.use(cors())
 app.use(express.json())
+app.use(express.static('public'))
 app.use('/uploads', express.static('uploads'))
 
 app.get('/api/:userId/my-pets-info', async (req, res) => {
@@ -40,20 +41,6 @@ app.get('/api/:userId/my-pets-info', async (req, res) => {
 
 })
 
-/*
-app.get('/api/:userId/:petName/my-pet-image', async (req, res) => {
-    const userId = req.params.userId
-    const petName = req.params.petName
-
-    let petImage = await models.Pet.findAll({
-        where: {
-            user_id: userId,
-            name: petName
-        }
-    })
-    res.blob(petImage)
-})
-*/
 
 app.post('/api/register', async (req, res) => {
     const username = req.body.username
@@ -123,7 +110,7 @@ function uploadFile(req, callback) {
 
             uniqueFileName = `${uuidv1()}.${file.name.split('.').pop()}`
             file.name = uniqueFileName
-            file.path = __dirname + '/uploads/' + file.name
+            file.path = __dirname + '/public/uploads/' + file.name
         })
         .on('file', (name, file) => {
             callback(file.name)
@@ -147,10 +134,11 @@ app.post('/api/add-pet', async (req, res) => {
     const is_chipped = req.body.is_chipped
     const chip_id = req.body.chip_id
     const user_id = req.body.user_id
-
+    const imageURl = `http://localhost:8080/uploads/${uniqueFileName}`
 
 
     const pet = models.Pet.build({
+
         name: name,
         gender: gender,
         color: color,
@@ -158,7 +146,7 @@ app.post('/api/add-pet', async (req, res) => {
         is_chipped: is_chipped,
         chip_id: chip_id,
         user_id: user_id,
-        image: uniqueFileName
+        image: imageURl
     })
 
     let savedPet = await pet.save()

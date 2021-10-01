@@ -16,11 +16,14 @@ import FetchMyPetsReducer from './stores/reducers/fetchMyPetsReducer';
 import ReportLostPetPage from './pages/ReportLostPetPage';
 import LostPetsGalleryPage from './pages/LostPetsGalleryPage';
 import FetchLostPetsReducer from './stores/reducers/fetchLostPetsReducer';
+import LostPetDetailsPage from './pages/LostPetDetailsPage';
+import PetDataReducer from './stores/reducers/petDataReducer';
 
 const reducer = combineReducers({
   userRed: UserIdReducer,
   fetchMyPetsRed: FetchMyPetsReducer,
-  fetchLostPetsRed: FetchLostPetsReducer
+  fetchLostPetsRed: FetchLostPetsReducer,
+  petDataRed: PetDataReducer
 })
 
 const composeEnhaners = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
@@ -40,6 +43,7 @@ ReactDOM.render(
           <Route path='/add-pet' component={AddPetPage} />
           <Route path='/report-lost-pet' component={ReportLostPetPage} />
           <Route path='/lost-pet-gallery' component={LostPetsGalleryPage} />
+          <Route path='/lost-pet-details' component={LostPetDetailsPage} />
         </Switch>
       </BaseLayout>
     </BrowserRouter>

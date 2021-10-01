@@ -29,3 +29,9 @@ export const fetchLostPets = () => {
     }
 }
 
+export const storePetData = (petData) => {
+    return {
+        type: actionType.STORE_DATA,
+        payload: petData
+    }
+}

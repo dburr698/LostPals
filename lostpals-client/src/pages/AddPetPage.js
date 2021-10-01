@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Button, Col, Row, Container, Form, Alert } from "react-bootstrap"
 import { connect } from "react-redux"
+import * as actionCreator from '../stores/creators/actionCreators'
 
 
 function AddPetPage(props) {
@@ -62,6 +63,7 @@ function AddPetPage(props) {
         }).then(response => response.json())
             .then(result => {
                 if (result.success) {
+                    props.onFetchMyPets(props.userId)
                     props.history.push('/my-pets')
                 }
             }).catch(error => {
@@ -136,4 +138,10 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(AddPetPage)
+const mapDispatchToProps = (dispatch) => {
+    return{
+        onFetchMyPets: (userId) => dispatch(actionCreator.fetchMyPets(userId))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddPetPage)
