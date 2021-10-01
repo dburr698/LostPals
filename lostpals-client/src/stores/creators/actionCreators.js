@@ -8,8 +8,14 @@ export const storeUserId = (userId) => {
 }
 
 export const fetchMyPets = (userId) => {
+    const token = localStorage.getItem('jsonwebtoken')
     return async (dispatch) => {
-        let response = await fetch(`http://localhost:8080/api/${userId}/my-pets-info`)
+        let response = await fetch(`http://localhost:8080/api/${userId}/my-pets-info`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         let myPets = await response.json()
         dispatch({
             type: actionType.FETCH_MY_PETS,
@@ -33,5 +39,19 @@ export const storePetData = (petData) => {
     return {
         type: actionType.STORE_DATA,
         payload: petData
+    }
+}
+
+export const isLoggedIn = () => {
+    return {
+        type: actionType.IS_LOGGED_IN,
+        payload: true
+    }
+}
+
+export const isLoggedOut = () => {
+    return {
+        type: actionType.IS_LOGGED_OUT,
+        payload: false
     }
 }

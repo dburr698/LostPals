@@ -14,7 +14,8 @@ const cors = require('cors')
 const bcrypt = require('bcryptjs')
 const salt = 10
 
-const models = require('./models')
+// import models
+global.models = require('./models')
 
 // import formidable package
 const formidable = require('formidable')
@@ -24,12 +25,16 @@ const {
     v1: uuidv1,
 } = require('uuid')
 
+// import authenticate middleware
+const authenticate = require('./middlewares/authorizationMiddleware')
+
 app.use(cors())
 app.use(express.json())
 app.use(express.static('public'))
 app.use('/uploads', express.static('uploads'))
 
-app.get('/api/:userId/my-pets-info', async (req, res) => {
+app.get('/api/:userId/my-pets-info', authenticate, async (req, res) => {
+
     const userId = req.params.userId
 
     let myPets = await models.Pet.findAll({
@@ -184,10 +189,10 @@ app.get('/api/lost-pets', async (req, res) => {
 
     let lostPets = await models.LostPet.findAll({
         include: [{
-                model: models.Pet,
-                as: 'pet',
-                
-            }]
+            model: models.Pet,
+            as: 'pet',
+
+        }]
     })
 
 

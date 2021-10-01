@@ -18,12 +18,16 @@ import LostPetsGalleryPage from './pages/LostPetsGalleryPage';
 import FetchLostPetsReducer from './stores/reducers/fetchLostPetsReducer';
 import LostPetDetailsPage from './pages/LostPetDetailsPage';
 import PetDataReducer from './stores/reducers/petDataReducer';
+import isLoggedInReducer from './stores/reducers/isLoggedInReducer';
+import requireAuth from './components/requireAuth';
+import * as actionCreator from './stores/creators/actionCreators'
 
 const reducer = combineReducers({
   userRed: UserIdReducer,
   fetchMyPetsRed: FetchMyPetsReducer,
   fetchLostPetsRed: FetchLostPetsReducer,
-  petDataRed: PetDataReducer
+  petDataRed: PetDataReducer,
+  loggedInRed: isLoggedInReducer
 })
 
 const composeEnhaners = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
@@ -39,9 +43,9 @@ ReactDOM.render(
           <Route exact path='/' component={HomePage} />
           <Route path='/register' component={RegistrationPage} />
           <Route path='/login' component={LoginPage} />
-          <Route path='/my-pets' component={MyPetsPage} />
-          <Route path='/add-pet' component={AddPetPage} />
-          <Route path='/report-lost-pet' component={ReportLostPetPage} />
+          <Route path='/my-pets' component={requireAuth(MyPetsPage)} />
+          <Route path='/add-pet' component={requireAuth(AddPetPage)} />
+          <Route path='/report-lost-pet' component={requireAuth(ReportLostPetPage)} />
           <Route path='/lost-pet-gallery' component={LostPetsGalleryPage} />
           <Route path='/lost-pet-details' component={LostPetDetailsPage} />
         </Switch>
