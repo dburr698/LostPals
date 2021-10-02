@@ -57,7 +57,7 @@ function LoginPage(props) {
                     props.onStoreUserId(result.userId)
                     props.onFetchMyPets(result.userId)
                     props.onLoggedIn()
-                    props.history.push('/')
+                    props.history.push('/my-pets')
                 } else {
                     setMessage(result.message)
                 }

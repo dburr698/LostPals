@@ -7,26 +7,42 @@ function LostPetDetailsPage(props) {
     console.log(props.petData)
     console.log(props.petData.pet)
 
-    return(
+    const lostAt = new Date(props.petData.date_lost)
+    const dateLost = lostAt.toLocaleDateString('en-US')
+
+    return (
         <div>
             <Container>
-            <h1>Pet Details</h1>
-            <Row>
-                <Col>
-                    <img src={props.petData.pet.image} alt="Pet Picture" style={{width: 300}} />
-                </Col>
-                <Col>
-                    <b>Name: </b>{props.petData.pet.name} <br></br>
-                    <b>Gender: </b>{props.petData.pet.gender} <br></br>
-                    <b>Breed: </b>{props.petData.pet.breed} <br></br>
-                    <b>Color: </b>{props.petData.pet.color} <br></br>
-                </Col>
-            </Row>
-            <Row>
-                <h4>Date Lost: </h4><p>{props.petData.date_lost}</p>
-                <h4>Zipcode: </h4><p>{props.petData.zipcode}</p>
-                <h4>Circumstances: </h4><p>{props.petData.circumstance}</p>
-            </Row>
+                <h1>Pet Details</h1>
+                <Row>
+                    <Col>
+                        <img src={props.petData.pet.image} alt="Pet Picture" style={{ width: 300 }} />
+                    </Col>
+                    <Col>
+                        <div className='pet-info'>
+                            <b>Name: </b>{props.petData.pet.name}
+                        </div>
+                        <div className='pet-info'>
+                            <b>Gender: </b>{props.petData.pet.gender}
+                        </div>
+                        <div className='pet-info'>
+                            <b>Breed: </b>{props.petData.pet.breed}
+                        </div>
+                        <div className='pet-info'>
+                            <b>Color: </b>{props.petData.pet.color}
+                        </div>
+                        <div className='pet-info'> 
+                            <b>Date Lost: </b>{dateLost}
+                        </div>
+                        <div className='pet-info'>
+                            <b>Zipcode: </b>{props.petData.zipcode}
+                        </div>
+                        <div className='pet-info'>
+                            <b>Circumstances: </b>
+                            <div>{props.petData.circumstance}</div>
+                        </div>
+                    </Col>
+                </Row>
 
             </Container>
         </div>
@@ -34,7 +50,7 @@ function LostPetDetailsPage(props) {
 }
 
 const mapStateToProps = (state) => {
-    return{
+    return {
         petData: state.petDataRed.petData
     }
 }
