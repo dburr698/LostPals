@@ -7,8 +7,10 @@ import LostPetForm from "../components/LostPetForm"
 function ReportLostPetPage(props) {
 
     const [showForm, setShowForm] = useState(false)
+    const [petId, setPetId] = useState('')
 
-    const handleLostButton = () => {
+    const handleLostButton = (petId) => {
+        setPetId(petId)
         setShowForm(!showForm)
     }
 
@@ -22,32 +24,37 @@ function ReportLostPetPage(props) {
                     <b>Color: </b>{pet.color}<br></br>
                     <b>Gender: </b>{pet.gender}
                 </Card.Body>
-                <Button variant='danger' onClick={handleLostButton} >Help! I'm Lost!</Button>
+                <Button variant='danger' onClick={() => handleLostButton(pet.id)} >Help! I'm Lost!</Button>
             </Card>
-
-            {showForm ? <LostPetForm petId={pet.id} /> : null}
         </li>
     })
 
 
-    return(
+    return (
         <div>
             <Container>
-            <h1>Report Lost Pet</h1>
-
-            <ul className="myPetsUL">
+                <h1>Report Lost Pet</h1>
                 <h3>Which pet is missing?</h3>
-                {myPetItems}
-            </ul>
+
+                <ul className="myPetsUL">
+
+                    {myPetItems}
+
+                </ul>
+                <div>
+                    {showForm ? <LostPetForm petId = {petId}/> : null}
+                </div>
             </Container>
         </div>
     )
 }
 
 const mapStateToProps = (state) => {
-    return{
+    return {
         myPets: state.fetchMyPetsRed.myPets
     }
 }
+
+
 
 export default connect(mapStateToProps)(ReportLostPetPage)

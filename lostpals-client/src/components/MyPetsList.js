@@ -14,6 +14,7 @@ function MyPetsList(props) {
                     <b>Color: </b>{pet.color}<br></br>
                     <b>Gender: </b>{pet.gender}
                 </Card.Body>
+                
             </Card>
         </li>
     })
