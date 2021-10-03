@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Button, Card, Container } from "react-bootstrap"
 import { connect } from "react-redux"
+import { HashLink as Link } from "react-router-hash-link"
 import LostPetForm from "../components/LostPetForm"
 
 
@@ -16,7 +17,7 @@ function ReportLostPetPage(props) {
 
     const myPetItems = props.myPets.map((pet) => {
         return <li className="petLI" key={pet.id}>
-            <Card style={{ width: 250 }}>
+            <Card className='petCard'>
                 <Card.Img variant='top' src={pet.image} />
                 <Card.Body>
                     <h4>{pet.name}</h4>
@@ -24,7 +25,7 @@ function ReportLostPetPage(props) {
                     <b>Color: </b>{pet.color}<br></br>
                     <b>Gender: </b>{pet.gender}
                 </Card.Body>
-                <Button variant='danger' onClick={() => handleLostButton(pet.id)} >Help! I'm Lost!</Button>
+                <Link to="/report-lost-pet#lostPet-form" ><Button variant='danger' className="lostPet-button" onClick={() => handleLostButton(pet.id)} >Help! I'm Lost!</Button></Link>
             </Card>
         </li>
     })
@@ -41,8 +42,8 @@ function ReportLostPetPage(props) {
                     {myPetItems}
 
                 </ul>
-                <div>
-                    {showForm ? <LostPetForm petId = {petId}/> : null}
+                <div id='lostPet-form'>
+                    {showForm ? <LostPetForm  petId = {petId}/> : null}
                 </div>
             </Container>
         </div>

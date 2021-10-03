@@ -12,7 +12,7 @@ function MyPetsPage(props) {
         <div>
             <Container>
                 <h1>My Pets</h1>
-                <NavLink to='/add-pet' ><Button className='mb-3'>Register a New Pet</Button></NavLink>
+                <NavLink to='/add-pet' ><Button className='mb-3 register-button'>Register a New Pet</Button></NavLink>
 
 
                 <MyPetsList />

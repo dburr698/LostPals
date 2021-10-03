@@ -46,11 +46,11 @@ function LostPetDetailsPage(props) {
         <div>
             <Container>
                 <h1>Pet Details</h1>
-                <Row>
-                    <Col>
-                        <img src={props.petData.pet.image} alt="Pet Picture" style={{ width: 300 }} />
+                <Row className='lostPet-details'>
+                    <Col className='pet-img-div'>
+                        <img src={props.petData.pet.image} alt="Pet Picture" className='lostPet-image'/>
                     </Col>
-                    <Col>
+                    <Col className='lostPet-info'>
                         <div className='pet-info'>
                             <b>Name: </b>{props.petData.pet.name}
                         </div>
@@ -81,13 +81,13 @@ function LostPetDetailsPage(props) {
                     {props.isLoggedIn ?
                         <div className='comment-box' >
 
-                            <Form.Control type='text' onChange={handleCommentChange} />
+                            <Form.Control className='comment-text' type='text' onChange={handleCommentChange} />
 
-                            <Button onClick={handleAddCommentButton}>Comment</Button>
+                            <Button className='comment-button' onClick={handleAddCommentButton}>Comment</Button>
 
                             {errorMessage && <Alert variant='danger' >{errorMessage}</Alert>}
                         </div>
-                        : <Link to='/login' ><Button>Please Log In to Leave a Message</Button></Link>}
+                        : <Link to='/login' ><Button className='login-message-button'>Please Log In to Leave a Message</Button></Link>}
                 </Row>
 
 
