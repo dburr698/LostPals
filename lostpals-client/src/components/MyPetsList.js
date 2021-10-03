@@ -7,7 +7,7 @@ function MyPetsList(props) {
     const myPetItems = props.myPets.map((pet) => {
         return <li className="petLI" key={pet.id}>
             <Card className='petCard'>
-                <img src={pet.image} alt="pet" />
+                <Card.Img variant='top' src={pet.image} alt="pet" />
                 <Card.Body>
                     <h4>{pet.name}</h4>
                     <b>Breed: </b>{pet.breed}<br></br>
