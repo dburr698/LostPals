@@ -16,7 +16,7 @@ function LostPetForm(props) {
 
     const handleReportPetButton = () => {
 
-        fetch('http://localhost:8080/api/report-lost-pet', {
+        fetch('https://polar-escarpment-56034.herokuapp.com/api/report-lost-pet', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"

@@ -28,7 +28,7 @@ function AddPetPage(props) {
     const handleUploadButton = () => {
         const formData = new FormData()
         formData.append('file', file)
-        fetch('http://localhost:8080/api/upload', {
+        fetch('https://polar-escarpment-56034.herokuapp.com/api/upload', {
             method: 'POST',
             body: formData
         }).then(response => response.json())
@@ -54,7 +54,7 @@ function AddPetPage(props) {
 
         console.log(body)
 
-        fetch('http://localhost:8080/api/add-pet', {
+        fetch('https://polar-escarpment-56034.herokuapp.com/api/add-pet', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

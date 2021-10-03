@@ -20,7 +20,7 @@ function LoginPage(props) {
     const handleLoginButton = (e) => {
         e.preventDefault()
 
-        fetch('http://localhost:8080/api/login', {
+        fetch('https://polar-escarpment-56034.herokuapp.com/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -43,7 +43,7 @@ function LoginPage(props) {
     const handleLoginAsGuestButton = () => {
         const body = {username: 'Guest', password: 'adminPassword'}
 
-        fetch('http://localhost:8080/api/login', {
+        fetch('https://polar-escarpment-56034.herokuapp.com/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
