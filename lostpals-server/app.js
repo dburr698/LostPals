@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 
+const PORT = process.env.PORT || 8080
+
 //import dotenv
 require('dotenv').config()
 
@@ -236,6 +238,6 @@ app.get('/api/:lostPetId/get-comments', async (req, res) => {
     res.json(comments)
 })
 
-app.listen(8080, () => {
+app.listen(PORT, () => {
     console.log("Server is running")
 })

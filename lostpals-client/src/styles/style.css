@@ -4,6 +4,68 @@
     src: url('../styles/fonts/SpecialElite-Regular.ttf')
 } 
 
+@media only screen and (max-width: 768px) and (min-width: 574px) {
+    .petCard{
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        width: 450px !important;
+    }
+
+    .register-button{
+        width: 100% !important;
+    }
+
+    .lostPet-details{
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    .pet-img-div{
+        width: 90% !important;
+        margin-left: auto !important;
+        margin-right: auto !important; 
+    }
+
+    .lostPet-image{
+        width: 100% !important;
+    }
+
+    .login-message-button{
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+}
+
+@media only screen and (max-width: 371px){
+    .pet-info{
+        font-size: large !important;
+    }
+    .commentLI {
+        font-size: large !important;
+    }
+    .petCard{
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        width: 250px !important;
+    }
+    .register-button{
+        width: 100% !important;
+    }
+    
+}
+
+@media only screen and (max-width: 573px) and (min-width: 372px) {
+    .petCard{
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        width: 300px !important;
+    }
+    .register-button{
+        width: 100% !important;
+    }
+}
+
+
+
 body {
     padding-top: 165px;
 }
@@ -16,6 +78,28 @@ h1, h2, h3, h4, h5 ,h6, p, b {
     height: 100%;
 }
 
+.commentsUL{
+    list-style: none;
+    margin-top: 20px;
+}
+
+.commentLI{
+    font-size: x-large;
+}
+
+.comment-box{
+    display: flex;
+}
+
+.comment-text{
+    width: 80% !important;
+}
+
+.comment-button{
+    border-radius: 10px !important;
+    margin-left: 10px !important;
+    width: 150px !important;
+}
 
 .myPetsUL{
     list-style: none;
@@ -24,9 +108,34 @@ h1, h2, h3, h4, h5 ,h6, p, b {
     justify-content: space-evenly;
 }
 
+.lostPetsUL{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.lostPet-button{
+    width: 100%;
+}
+
+.lostPet-image{
+    width: 400px;
+
+}
+
 .petLI{
     margin: 20px;
     
+}
+
+.petCard{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 250px;
+}
+
+.details-button{
+    width: 100%;
 }
 
 .logo-img {

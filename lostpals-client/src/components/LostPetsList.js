@@ -14,7 +14,7 @@ function LostPetsList(props) {
     
     const lostPetItems = props.lostPets.map((lostPet) => {
         return <li className="petLI" key={lostPet.id}>
-            <Card style={{ width: 250 }}>
+            <Card className='petCard'>
                 <img src={lostPet.pet.image} alt="pet" />
                 <Card.Body>
                     <h4>{lostPet.pet.name}</h4>
@@ -22,7 +22,7 @@ function LostPetsList(props) {
                     <b>Color: </b>{lostPet.pet.color}<br></br>
                     <b>Gender: </b>{lostPet.pet.gender}
                 </Card.Body>
-                <NavLink to='/lost-pet-details'><Button variant='primary' onClick={() => handleDetailsButton(lostPet)}>More Details</Button></NavLink>
+                <NavLink to='/lost-pet-details'><Button variant='primary' className='details-button' onClick={() => handleDetailsButton(lostPet)}>More Details</Button></NavLink>
             </Card>
         </li>
     })
