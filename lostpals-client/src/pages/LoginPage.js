@@ -33,6 +33,7 @@ function LoginPage(props) {
                     localStorage.setItem('jsonwebtoken', token)
                     props.onStoreUserId(result.userId)
                     props.onFetchMyPets(result.userId)
+                    props.onLoggedIn()
                     props.history.push('/')
                 } else {
                     setMessage(result.message)
