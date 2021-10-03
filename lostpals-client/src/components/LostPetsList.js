@@ -8,6 +8,7 @@ function LostPetsList(props) {
 
     const handleDetailsButton = (pet) => {
         props.onStorePetData(pet)
+        props.onFetchComments(pet.id)
     }
 
     
@@ -44,7 +45,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        onStorePetData: (pet) => dispatch(actionCreator.storePetData(pet))
+        onStorePetData: (pet) => dispatch(actionCreator.storePetData(pet)),
+        onFetchComments: (lostPetId) => dispatch(actionCreator.fetchComments(lostPetId))
     }
 }
 

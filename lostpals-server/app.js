@@ -199,6 +199,43 @@ app.get('/api/lost-pets', async (req, res) => {
     res.json(lostPets)
 })
 
+app.post('/api/add-comment', async (req, res) => {
+    const userId = req.body.userId
+    const lostPetId = req.body.lostPetId
+    const message = req.body.message
+
+    const comment = models.Comment.build({
+        user_id: userId,
+        lostPet_id: lostPetId,
+        message: message
+    })
+
+    let savedComment = await comment.save()
+
+    if(savedComment != null) {
+        res.json({success: true})
+    } else [
+        res.json({message: 'There was an issue saving your comment!'})
+    ]
+})
+
+app.get('/api/:lostPetId/get-comments', async (req, res) => {
+
+    const lostPetId = req.params.lostPetId
+
+    let comments = await models.Comment.findAll({
+        where: {
+            lostPet_id: lostPetId
+        },
+        include:[{
+            model: models.User,
+            as: 'user'
+        }]
+    })
+
+    res.json(comments)
+})
+
 app.listen(8080, () => {
     console.log("Server is running")
 })

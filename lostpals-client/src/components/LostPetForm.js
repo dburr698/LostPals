@@ -42,13 +42,13 @@ function LostPetForm(props) {
                     <Form.Label>Date Lost: </Form.Label>
                     <Form.Control type='date' name='dateLost' onChange={handleLostPetChange} />
                 </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label>Circumstances: </Form.Label>
-                    <Form.Control as="textarea" rows={3} type='text' name='circumstance' onChange={handleLostPetChange} placeholder="Please describe how, when, and where your pet was lost..." />
-                </Form.Group>
                 <Form.Group className='mb-3'>
                     <Form.Label>Zipcode: </Form.Label>
                     <Form.Control type='text' name='zipcode' onChange={handleLostPetChange} placeholder="Enter zipcode where your pet went missing" />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                    <Form.Label>Circumstances: </Form.Label>
+                    <Form.Control as="textarea" rows={3} type='text' name='circumstance' onChange={handleLostPetChange} placeholder="Please describe how, when, and where your pet was lost..." />
                 </Form.Group>
                 <Button variant='primary' onClick={handleReportPetButton}>Report Missing Pet</Button>
                 <Form.Group className='mb-3' >

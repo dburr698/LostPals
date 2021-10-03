@@ -21,13 +21,15 @@ import PetDataReducer from './stores/reducers/petDataReducer';
 import isLoggedInReducer from './stores/reducers/isLoggedInReducer';
 import requireAuth from './components/requireAuth';
 import * as actionCreator from './stores/creators/actionCreators'
+import FetchCommentsReducer from './stores/reducers/fetchCommentReducer';
 
 const reducer = combineReducers({
   userRed: UserIdReducer,
   fetchMyPetsRed: FetchMyPetsReducer,
   fetchLostPetsRed: FetchLostPetsReducer,
   petDataRed: PetDataReducer,
-  loggedInRed: isLoggedInReducer
+  loggedInRed: isLoggedInReducer,
+  fetComRed: FetchCommentsReducer
 })
 
 const composeEnhaners = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
