@@ -10,7 +10,7 @@ export const storeUserId = (userId) => {
 export const fetchMyPets = (userId) => {
     const token = localStorage.getItem('jsonwebtoken')
     return async (dispatch) => {
-        let response = await fetch(`https://polar-escarpment-56034.herokuapp.com/api/${userId}/my-pets-info`, {
+        let response = await fetch(`https://lost-pals.herokuapp.com/api/${userId}/my-pets-info`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -26,7 +26,7 @@ export const fetchMyPets = (userId) => {
 
 export const fetchComments = (lostPetId) => {
     return async (dispatch) => {
-        let response = await fetch(`https://polar-escarpment-56034.herokuapp.com/api/${lostPetId}/get-comments`)
+        let response = await fetch(`https://lost-pals.herokuapp.com/api/${lostPetId}/get-comments`)
         let comments = await response.json()
         dispatch({
             type: actionType.FETCH_COMMENTS,
@@ -37,7 +37,7 @@ export const fetchComments = (lostPetId) => {
 
 export const fetchLostPets = () => {
     return async (dispatch) => {
-        let response = await fetch('https://polar-escarpment-56034.herokuapp.com/api/lost-pets')
+        let response = await fetch('https://lost-pals.herokuapp.com/api/lost-pets')
         let lostPets = await response.json()
         dispatch({
             type: actionType.FETCH_LOST_PETS,

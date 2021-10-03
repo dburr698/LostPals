@@ -141,7 +141,7 @@ app.post('/api/add-pet', async (req, res) => {
     const is_chipped = req.body.is_chipped
     const chip_id = req.body.chip_id
     const user_id = req.body.user_id
-    const imageURl = `https://polar-escarpment-56034.herokuapp.com/uploads/${uniqueFileName}`
+    const imageURl = `https://lost-pals.herokuapp.com/uploads/${uniqueFileName}`
 
 
     const pet = models.Pet.build({

@@ -25,7 +25,7 @@ function LostPetDetailsPage(props) {
             message: comment
         }
 
-        fetch('https://polar-escarpment-56034.herokuapp.com/api/add-comment', {
+        fetch('https://lost-pals.herokuapp.com/api/add-comment', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

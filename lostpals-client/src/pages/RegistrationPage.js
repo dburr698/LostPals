@@ -17,7 +17,7 @@ function RegistrationPage(props) {
     const handleRegisterButton = (e) => {
         e.preventDefault()
 
-        fetch('https://polar-escarpment-56034.herokuapp.com/api/register', {
+        fetch('https://lost-pals.herokuapp.com/api/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
