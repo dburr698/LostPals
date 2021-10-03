@@ -1,14 +1,46 @@
-import { Col, Container, Row } from "react-bootstrap"
+import { useState } from "react"
+import { Col, Container, Row, Form, Button, NavLink, Alert } from "react-bootstrap"
 import { connect } from "react-redux"
+import { Link } from "react-router-dom"
+import CommentsList from "../components/commentsList"
+import * as actionCreator from '../stores/creators/actionCreators'
 
 
 function LostPetDetailsPage(props) {
 
-    console.log(props.petData)
-    console.log(props.petData.pet)
+    const [comment, setComment] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
 
     const lostAt = new Date(props.petData.date_lost)
     const dateLost = lostAt.toLocaleDateString('en-US')
+
+    const handleCommentChange = (e) => {
+        setComment(e.target.value)
+    }
+
+    const handleAddCommentButton = () => {
+        const body = {
+            userId: props.userId,
+            lostPetId: props.petData.id,
+            message: comment
+        }
+
+        fetch('http://localhost:8080/api/add-comment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        }).then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    props.onFetchComments(props.petData.id)
+                    setComment('')
+                } else {
+                    setErrorMessage(result.message)
+                }
+            })
+    }
 
     return (
         <div>
@@ -31,7 +63,7 @@ function LostPetDetailsPage(props) {
                         <div className='pet-info'>
                             <b>Color: </b>{props.petData.pet.color}
                         </div>
-                        <div className='pet-info'> 
+                        <div className='pet-info'>
                             <b>Date Lost: </b>{dateLost}
                         </div>
                         <div className='pet-info'>
@@ -44,6 +76,24 @@ function LostPetDetailsPage(props) {
                     </Col>
                 </Row>
 
+                <Row className='mt-5'>
+                    <h2>Have You Seen This Pet?</h2>
+                    {props.isLoggedIn ?
+                        <div className='comment-box' >
+
+                            <Form.Control type='text' onChange={handleCommentChange} />
+
+                            <Button onClick={handleAddCommentButton}>Comment</Button>
+
+                            {errorMessage && <Alert variant='danger' >{errorMessage}</Alert>}
+                        </div>
+                        : <Link to='/login' ><Button>Please Log In to Leave a Message</Button></Link>}
+                </Row>
+
+
+                <CommentsList />
+
+
             </Container>
         </div>
     )
@@ -51,8 +101,19 @@ function LostPetDetailsPage(props) {
 
 const mapStateToProps = (state) => {
     return {
-        petData: state.petDataRed.petData
+        petData: state.petDataRed.petData,
+        isLoggedIn: state.loggedInRed.isLoggedIn,
+        userId: state.userRed.userID,
+
     }
 }
 
-export default connect(mapStateToProps)(LostPetDetailsPage)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onFetchComments: (lostPetId) => dispatch(actionCreator.fetchComments(lostPetId))
+    }
+}
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(LostPetDetailsPage)
