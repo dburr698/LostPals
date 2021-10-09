@@ -4,7 +4,7 @@
 
 app link: https://www.lostpals.one/
 
-##Disclaimer:
+## Disclaimer:
 
 As of now all images uploaded by the user will be purged whenever the server restarts.
 
