@@ -20,6 +20,11 @@ Losing a beloved pet can be very stressful and a simple poster on a street corne
 
 A custom built API allows users to upload an image of their pet along with thier pet's information and store it in a PostgreSQL database. Users can also comment on lost pet post with any information they might be able to provide.
 
+## Project Roadmap:
+
+* [ ] Implement AWS S3 for persistant file storage
+* [ ] Add footer with contact information for user feedback
+
 ## Built with:
 
 #### Front-End Technology:
