@@ -4,6 +4,10 @@
 
 app link: https://www.lostpals.one/
 
+##Disclaimer:
+
+As of now all images uploaded by the user will be purged whenever the server restarts.
+
 ## App Description:
 
 This app is used for reporting lost pets. It allows users to view all pets reported missing, register their own pets and report them if they get lost. It also provides users with some resources for pet travel gear and pet emergency plan in case of natural disasters.
