@@ -2,19 +2,20 @@ import { useState } from "react"
 import { Button, Col, Row, Container, Form, Alert } from "react-bootstrap"
 import { connect } from "react-redux"
 import * as actionCreator from '../stores/creators/actionCreators'
+import axios from 'axios'
 
 
 function AddPetPage(props) {
 
     const [pet, setPet] = useState({})
-    const [file, setFile] = useState('')
+    const [file, setFile] = useState()
     const [showFile, setShowFile] = useState({})
-    const [message, setMessage] = useState('')
+    
 
     const handlePetChange = (e) => {
         setPet({
             ...pet,
-            [e.target.name]: e.target.value,
+            [e.target.name]: e.target.value
         })
     }
 
@@ -25,50 +26,25 @@ function AddPetPage(props) {
         })
     }
 
-    const handleUploadButton = () => {
+    const handleAddPetButton = async () => {
         const formData = new FormData()
-        formData.append('file', file)
-        fetch('https://lost-pals.herokuapp.com/api/upload', {
-            method: 'POST',
-            body: formData
-        }).then(response => response.json())
-            .then(result => {
-                if (result.success) {
-                    setMessage(result.message)
-                }
-            }).catch(error => {
-                console.error(error)
-            })
-    }
+        formData.append('image', file)
+        formData.append('name', pet.name)
+        formData.append('gender', pet.gender)
+        formData.append('breed', pet.breed)
+        formData.append('color', pet.color)
+        formData.append('is_chipped', pet.is_chipped)
+        formData.append('chip_id', pet.chip_id)
+        formData.append('user_id', props.userId)
+        
+        
 
-    const handleAddPetButton = () => {
-        const body = {
-            name: pet.name,
-            gender: pet.gender,
-            breed: pet.breed,
-            color: pet.color,
-            is_chipped: pet.is_chipped,
-            chip_id: pet.chip_id,
-            user_id: props.userId
+        const result = await axios.post('https://lost-pals.herokuapp.com/api/add-pet', formData, {headers: {'Content-Type': 'multipart/form-data'}})
+        if (result.data.success) {
+            props.onFetchMyPets(props.userId)
+            props.history.push('/my-pets')
         }
 
-        console.log(body)
-
-        fetch('https://lost-pals.herokuapp.com/api/add-pet', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        }).then(response => response.json())
-            .then(result => {
-                if (result.success) {
-                    props.onFetchMyPets(props.userId)
-                    props.history.push('/my-pets')
-                }
-            }).catch(error => {
-                console.error(error)
-            })
     }
 
 
@@ -76,21 +52,16 @@ function AddPetPage(props) {
 
     return (
         <div>
-            <Container>
+            <Container className='mb-4'>
                 <h1>Register a New Pet</h1>
 
                 <Row>
-                    <Col>
-                        <Form.Group className='mb-3'>
-                            <Form.Label>Photo: </Form.Label>
-                            <Form.Control type="file" name="file" onChange={handleFileChange} />
-                        </Form.Group>
-                        <Form.Group>
-                            {message && <Alert variant='success'>{message}</Alert>}
-                        </Form.Group>
-                        <Button type='submit' onClick={handleUploadButton} >Upload</Button>
 
-                    </Col>
+                    <Form.Group className='mb-3'>
+                        <Form.Label>Photo: </Form.Label>
+                        <Form.Control type="file" name="file" onChange={handleFileChange} />
+                    </Form.Group>
+
                     <Col>
                         <img src={showFile.file} width='200px' />
                     </Col>
@@ -102,16 +73,20 @@ function AddPetPage(props) {
                     <Form.Control type='text' name='name' onChange={handlePetChange} placeholder="Enter Pet's Name" required />
                 </Form.Group>
                 <Form.Group className='mb-3'>
-                    <Form.Label>Gender: </Form.Label>
-                    <Form.Control type='text' name='gender' onChange={handlePetChange} placeholder="Enter Pet's Gender" required />
-                </Form.Group>
-                <Form.Group className='mb-3'>
                     <Form.Label>Breed: </Form.Label>
                     <Form.Control type='text' name='breed' onChange={handlePetChange} placeholder="Enter Breed" />
                 </Form.Group>
                 <Form.Group className='mb-3'>
                     <Form.Label>Color: </Form.Label>
                     <Form.Control type='text' name='color' onChange={handlePetChange} placeholder="Primary Fur Colors" />
+                </Form.Group>
+                <Form.Group className='mb-3'>
+                    <Form.Label>Gender: </Form.Label>
+                    <select className='m-2' name='gender' onChange={handlePetChange}>
+                        <option> - </option>
+                        <option value='Male' >Male</option>
+                        <option value='Female'>Female</option>
+                    </select>
                 </Form.Group>
                 <Form.Group className='mb-3'>
                     <Form.Label>Pet has Chip: </Form.Label>
@@ -139,7 +114,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return{
+    return {
         onFetchMyPets: (userId) => dispatch(actionCreator.fetchMyPets(userId))
     }
 }

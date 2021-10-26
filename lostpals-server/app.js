@@ -19,21 +19,23 @@ const salt = 10
 // import models
 global.models = require('./models')
 
-// import formidable package
-const formidable = require('formidable')
+// import multer package
+const multer = require('multer')
+const upload = multer({ dest: 'uploads/'})
 
-//import uuid package
-const {
-    v1: uuidv1,
-} = require('uuid')
+const fs = require('fs')
+const util = require('util')
+const unlinkFile = util.promisify(fs.unlink)
 
 // import authenticate middleware
 const authenticate = require('./middlewares/authorizationMiddleware')
 
+// import S3 upload function
+const { uploadFile } = require('./middlewares/S3')
+
 app.use(cors())
 app.use(express.json())
-app.use(express.static('public'))
-app.use('/uploads', express.static('uploads'))
+
 
 app.get('/api/:userId/my-pets-info', authenticate, async (req, res) => {
 
@@ -108,32 +110,13 @@ app.post('/api/login', async (req, res) => {
     }
 })
 
-var uniqueFileName = ''
 
-function uploadFile(req, callback) {
+app.post('/api/add-pet', upload.single('image'), async (req, res) => {
 
-    new formidable.IncomingForm().parse(req)
-        .on('fileBegin', (name, file) => {
+    const file = req.file
 
-            uniqueFileName = `${uuidv1()}.${file.name.split('.').pop()}`
-            file.name = uniqueFileName
-            file.path = __dirname + '/public/uploads/' + file.name
-        })
-        .on('file', (name, file) => {
-            callback(file.name)
-        })
-}
+    const result = await uploadFile(file)
 
-app.post('/api/upload', (req, res) => {
-
-    uploadFile(req, (photoURL) => {
-        res.json({ success: true, message: 'Image was successfully uploaded!' })
-    })
-
-
-})
-
-app.post('/api/add-pet', async (req, res) => {
     const name = req.body.name
     const gender = req.body.gender
     const color = req.body.color
@@ -141,10 +124,10 @@ app.post('/api/add-pet', async (req, res) => {
     const is_chipped = req.body.is_chipped
     const chip_id = req.body.chip_id
     const user_id = req.body.user_id
-    const imageURl = `https://lost-pals.herokuapp.com/uploads/${uniqueFileName}`
+    const imageURl = result.Location
 
 
-    const pet = models.Pet.build({
+    const pet = await models.Pet.build({
 
         name: name,
         gender: gender,
@@ -158,10 +141,12 @@ app.post('/api/add-pet', async (req, res) => {
 
     let savedPet = await pet.save()
     if (savedPet != null) {
-        res.json({ success: true })
+        res.send({ success: true })
     } else {
-        res.json({ message: "Could not save data" })
+        res.send({ message: "Could not save data" })
     }
+
+    unlinkFile(file.path)
 
 })
 
